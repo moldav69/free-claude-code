@@ -43,7 +43,7 @@ Free Claude Code routes Anthropic Messages API traffic from Claude Code to any p
 ## What You Get
 
 - Drop-in proxy for Claude Code's Anthropic API calls.
-- 17 provider backends: NVIDIA NIM, OpenRouter, Google AI Studio (Gemini), DeepSeek, Mistral La Plateforme, Mistral Codestral, OpenCode Zen, OpenCode Go, Wafer, Kimi, Cerebras Inference, Groq, Fireworks AI, Z.ai, LM Studio, llama.cpp, and Ollama.
+- 18 provider backends: NVIDIA NIM, OpenRouter, Google AI Studio (Gemini), DeepSeek, Mistral La Plateforme, Mistral Codestral, OpenCode Zen, OpenCode Go, Wafer, Kimi, Cerebras Inference, Groq, Fireworks AI, Z.ai, MiniMax, LM Studio, llama.cpp, and Ollama.
 - Per-model routing: send Opus, Sonnet, Haiku, and fallback traffic to different providers.
 - Native Claude Code `/model` picker support through the proxy's `/v1/models` endpoint (see [Model Picker](#model-picker)).
 - Streaming, tool use, reasoning/thinking block handling, and local request optimizations.
@@ -277,13 +277,29 @@ Popular examples:
 
 Browse models at [Z.ai](https://z.ai).
 
-### 15. [LM Studio](https://lmstudio.ai/)
+### 15. [MiniMax](https://platform.minimax.io/)
+
+Get a Subscription Key at [platform.minimax.io/user-center/payment/token-plan](https://platform.minimax.io/user-center/payment/token-plan) (Token Plan) or a pay-as-you-go API key from the [Developer Platform](https://platform.minimax.io).
+
+In the Admin UI, paste it into `MINIMAX_API_KEY`, then set `MODEL` to a MiniMax model slug such as `minimax/MiniMax-M3`.
+
+This provider calls MiniMax's **Anthropic-compatible** Messages API (`https://api.minimax.io/anthropic/v1/messages`). Model discovery uses the OpenAI-compat endpoint at `https://api.minimax.io/v1/models`. MiniMax-M3 supports extended thinking, tool use, and multimodal input (images/video); M2.x models have thinking always-on.
+
+Popular examples:
+
+- `minimax/MiniMax-M3` (1M context, thinking, multimodal)
+- `minimax/MiniMax-M2.7` (204k context, always-on thinking)
+- `minimax/MiniMax-M2.7-highspeed` (lower latency)
+
+Browse models at [platform.minimax.io](https://platform.minimax.io/docs/guides/models-intro).
+
+### 16. [LM Studio](https://lmstudio.ai/)
 
 Start LM Studio's local server and load a model. In the Admin UI, keep or update `LM_STUDIO_BASE_URL`, then set `MODEL` to the model identifier shown by LM Studio, prefixed with `lmstudio/`.
 
 Prefer models with tool-use support for Claude Code workflows.
 
-### 16. [llama.cpp](https://github.com/ggml-org/llama.cpp)
+### 17. [llama.cpp](https://github.com/ggml-org/llama.cpp)
 
 Start `llama-server` with an Anthropic-compatible `/v1/messages` endpoint and enough context for Claude Code requests.
 
@@ -291,7 +307,7 @@ In the Admin UI, keep or update `LLAMACPP_BASE_URL`, then set `MODEL` to the loc
 
 For local coding models, context size matters. If llama.cpp returns HTTP 400 for normal Claude Code requests, increase `--ctx-size` and verify the model/server build supports the requested features.
 
-### 17. [Ollama](https://ollama.com/)
+### 18. [Ollama](https://ollama.com/)
 
 Run Ollama and pull a model:
 
@@ -304,7 +320,7 @@ In the Admin UI, keep or update `OLLAMA_BASE_URL`, then set `MODEL` to the same 
 
 `OLLAMA_BASE_URL` is the Ollama server root; do not append `/v1`. Example model slugs include `ollama/llama3.1` and `ollama/llama3.1:8b`.
 
-### 18. Mix Providers By Model Tier
+### 19. Mix Providers By Model Tier
 
 Each model tier can use a different provider by setting `MODEL_OPUS`, `MODEL_SONNET`, and `MODEL_HAIKU` in the Admin UI. Leave a tier blank to inherit `MODEL`.
 
@@ -451,7 +467,7 @@ Important pieces:
 - FastAPI exposes Anthropic-compatible routes such as `/v1/messages`, `/v1/messages/count_tokens`, and `/v1/models`.
 - Model routing resolves the Claude model name to `MODEL_OPUS`, `MODEL_SONNET`, `MODEL_HAIKU`, or `MODEL`.
 - NIM, OpenCode Zen, and OpenCode Go use OpenAI chat streaming translated into Anthropic SSE.
-- Wafer, OpenRouter, DeepSeek, Kimi, Fireworks AI, Z.ai, LM Studio, llama.cpp, and Ollama use Anthropic Messages style transports where applicable (with provider-specific quirks and model-list URLs).
+- Wafer, OpenRouter, DeepSeek, Kimi, Fireworks AI, Z.ai, MiniMax, LM Studio, llama.cpp, and Ollama use Anthropic Messages style transports where applicable (with provider-specific quirks and model-list URLs).
 - The proxy normalizes thinking blocks, tool calls, token usage metadata, and provider errors into the shape Claude Code expects.
 - Request optimizations answer trivial Claude Code probes locally to save latency and quota.
 

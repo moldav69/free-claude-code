@@ -215,6 +215,23 @@ PROVIDER_CATALOG: dict[str, ProviderDescriptor] = {
             "rate_limit",
         ),
     ),
+    "minimax": ProviderDescriptor(
+        provider_id="minimax",
+        transport_type="anthropic_messages",
+        credential_env="MINIMAX_API_KEY",
+        credential_url="https://platform.minimax.io/user-center/payment/token-plan",
+        credential_attr="minimax_api_key",
+        default_base_url=MINIMAX_DEFAULT_BASE,
+        proxy_attr="minimax_proxy",
+        capabilities=(
+            "chat",
+            "streaming",
+            "tools",
+            "thinking",
+            "native_anthropic",
+            "rate_limit",
+        ),
+    ),
     "lmstudio": ProviderDescriptor(
         provider_id="lmstudio",
         transport_type="anthropic_messages",

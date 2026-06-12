@@ -32,6 +32,8 @@ OPENCODE_DEFAULT_BASE = "https://opencode.ai/zen/v1"
 OPENCODE_GO_DEFAULT_BASE = "https://opencode.ai/zen/go/v1"
 # Z.ai Anthropic-compatible Messages API (not OpenAI Coding Plan chat completions).
 ZAI_DEFAULT_BASE = "https://api.z.ai/api/anthropic/v1"
+# MiniMax Anthropic-compatible Messages API (POST …/anthropic/v1/messages).
+MINIMAX_DEFAULT_BASE = "https://api.minimax.io/anthropic/v1"
 # Google AI Studio Gemini API OpenAI-compat layer (not Vertex AI).
 GEMINI_DEFAULT_BASE = "https://generativelanguage.googleapis.com/v1beta/openai/"
 GROQ_DEFAULT_BASE = "https://api.groq.com/openai/v1"

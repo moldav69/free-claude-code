@@ -1,6 +1,10 @@
-# providers/minimax/__init__.py
 """MiniMax provider exports."""
 
-from __future__ import annotations
+from providers.defaults import MINIMAX_DEFAULT_BASE
 
-__all__: list[str] = []
+from .client import MiniMaxProvider
+
+__all__ = [
+    "MINIMAX_DEFAULT_BASE",
+    "MiniMaxProvider",
+]

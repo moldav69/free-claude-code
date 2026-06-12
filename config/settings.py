@@ -105,6 +105,9 @@ class Settings(BaseSettings):
     # ==================== Fireworks AI Config ====================
     fireworks_api_key: str = Field(default="", validation_alias="FIREWORKS_API_KEY")
 
+    # ==================== MiniMax Config ====================
+    minimax_api_key: str = Field(default="", validation_alias="MINIMAX_API_KEY")
+
     # ==================== Google Gemini (Google AI Studio) ====================
     gemini_api_key: str = Field(default="", validation_alias="GEMINI_API_KEY")
 
